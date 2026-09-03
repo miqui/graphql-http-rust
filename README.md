@@ -1,5 +1,10 @@
 # graphql-http-rust
 
+[![CI](https://github.com/miqui/graphql-http-rust/actions/workflows/ci.yml/badge.svg)](https://github.com/miqui/graphql-http-rust/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Rust: stable](https://img.shields.io/badge/rust-stable-orange.svg)
+![Spec: GraphQL over HTTP, Stage 2 Draft](https://img.shields.io/badge/spec-GraphQL%20over%20HTTP%20%28Stage%202%20Draft%29-8A2BE2.svg)
+
 A Rust implementation of the HTTP-layer behavior defined by the
 [GraphQL-over-HTTP specification](https://github.com/graphql/graphql-over-http)
 (canonical spec text vendored at `spec/GraphQLOverHTTP.md`).
