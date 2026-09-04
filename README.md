@@ -49,4 +49,46 @@ curl -X POST http://127.0.0.1:8080/graphql \
   -d '{"query": "{ hello }"}'
 ```
 
+## Conformance testing with k6
+
+[`examples/k6/graphql-scenarios.js`](examples/k6/graphql-scenarios.js) is a
+[k6](https://k6.io) suite that tests the example server's compliance with the
+GraphQL-over-HTTP spec over real HTTP, then load-tests it. Every assertion is
+tagged with the spec section it verifies, and a single
+`graphql_spec_conformance rate==1.0` threshold fails the run if any spec
+assertion breaks.
+
+Install k6 (macOS):
+
+```sh
+brew install k6
+```
+
+Start the server, then run the suite in another terminal:
+
+```sh
+cargo run -p example-server        # listens on http://127.0.0.1:8080/graphql
+k6 run examples/k6/graphql-scenarios.js
+```
+
+Scenarios (run all, or pick one with `--env SCENARIO=<name>`):
+
+- `smoke` — 16-assertion conformance pass over every documented status path
+  (200, 294, 422, 415, 406, 405+`Allow`, 400; legacy `application/json`
+  downgrade; wildcard/absent Accept; unknown-property tolerance). Fast fail:
+  run this before any load scenario.
+- `query_load` — 200 req/s constant-arrival happy-path throughput.
+- `mixed_ramp` — realistic traffic mix (queries, mutations, GET, partial
+  results) ramping 5 → 150 VUs.
+- `error_path_spike` — burst of malformed/rejected requests to confirm the
+  rejection paths stay cheap under pressure.
+
+```sh
+k6 run --env SCENARIO=smoke examples/k6/graphql-scenarios.js
+k6 run --env BASE_URL=http://localhost:3000 examples/k6/graphql-scenarios.js
+```
+
+A passing full run reports `graphql_spec_conformance: 100.00%` across all
+scenarios; any drift from the spec fails the run via threshold.
+
 Not published to crates.io (`publish = false` at the workspace level).
