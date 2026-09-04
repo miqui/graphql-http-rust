@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Rust dependencies — workspace root picks up all workspace members
+  # (graphql-http, examples/example-server) plus the root manifest.
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions used in .github/workflows/*.yml
+  # (dtolnay/rust-toolchain, Swatinem/rust-cache, cargo-audit install)
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
