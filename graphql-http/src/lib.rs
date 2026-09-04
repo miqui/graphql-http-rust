@@ -1,5 +1,11 @@
-//! `graphql-http`: HTTP-layer implementation of the GraphQL-over-HTTP
+//! `graphql-http-rust`: HTTP-layer implementation of the GraphQL-over-HTTP
 //! specification.
+//!
+//! **Status: draft.** This crate tracks the GraphQL-over-HTTP specification
+//! at **Stage 2: Draft** — the draft may still change, occasionally
+//! dramatically, and is not guaranteed to be accepted. Treat this crate as a
+//! draft-spec reference implementation: suitable for experimentation,
+//! conformance testing, and review — **not ready for production use**.
 //!
 //! This crate implements only the **HTTP transport layer** behavior defined
 //! by the [GraphQL-over-HTTP specification](https://github.com/graphql/graphql-over-http):

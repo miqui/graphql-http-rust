@@ -6,4 +6,6 @@ members = ["graphql-http", "examples/example-server"]
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-publish = false
+repository = "https://github.com/miqui/graphql-http-rust"
+keywords = ["graphql", "http", "spec", "conformance", "over-http"]
+categories = ["network-programming", "web-programming", "parser-implementations"]

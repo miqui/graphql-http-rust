@@ -9,9 +9,17 @@ A Rust implementation of the HTTP-layer behavior defined by the
 [GraphQL-over-HTTP specification](https://github.com/graphql/graphql-over-http)
 (canonical spec text vendored at `spec/GraphQLOverHTTP.md`).
 
+> **⚠️ Status: draft — not ready for production.** This is a reference
+> implementation of the **GraphQL-over-HTTP spec at Stage 2: Draft**. The
+> draft may still change, occasionally dramatically, and is not guaranteed to
+> be accepted. The crate's API may break at any time while the spec evolves.
+> Suitable for experimentation, conformance testing, and review — not for
+> production GraphQL services.
+
 ## Layout
 
-- `graphql-http/` — core library: content negotiation (`media`), request
+- `graphql-http/` — the publishable crate (`graphql-http-rust` on
+  crates.io): content negotiation (`media`), request
   parsing for GET/POST (`request`), `GraphQLResult`/response encoding
   (`response`), and HTTP status-code decision helpers (`status`). This crate
   implements only the HTTP transport layer; GraphQL parsing, validation, and

@@ -21,7 +21,7 @@ use axum::{
     routing::get,
     Router,
 };
-use graphql_http::{
+use graphql_http_rust::{
     document_looks_like_mutation, encode_response, negotiate, parse_get_params, parse_json_body,
     GraphQLRequest, GraphQLResult, Negotiated, RequestParseError,
 };
@@ -89,8 +89,8 @@ fn accept_header(headers: &HeaderMap) -> Option<String> {
         .map(|s| s.to_string())
 }
 
-/// Converts a `graphql_http::HttpResponse` into an Axum `Response`.
-fn to_axum_response(resp: graphql_http::HttpResponse) -> Response {
+/// Converts a `graphql_http_rust::HttpResponse` into an Axum `Response`.
+fn to_axum_response(resp: graphql_http_rust::HttpResponse) -> Response {
     let status = StatusCode::from_u16(resp.status).unwrap_or(StatusCode::OK);
     let mut response = Response::builder().status(status);
     if let Ok(hv) = HeaderValue::from_str(&resp.content_type) {
@@ -125,8 +125,10 @@ async fn handle_post(State(_state): State<AppState>, headers: HeaderMap, body: B
     let Some(content_type) = content_type else {
         return error_response(400, "Content-Type header is required", &[]);
     };
-    let essence = graphql_http::media::content_type_essence(content_type);
-    if essence != "application/json" && essence != graphql_http::APPLICATION_GRAPHQL_RESPONSE_JSON {
+    let essence = graphql_http_rust::media::content_type_essence(content_type);
+    if essence != "application/json"
+        && essence != graphql_http_rust::APPLICATION_GRAPHQL_RESPONSE_JSON
+    {
         return error_response(415, "unsupported Content-Type", &[]);
     }
 
@@ -197,7 +199,7 @@ async fn handle_get(
 fn respond_with_result(result: &GraphQLResult, negotiated: Negotiated) -> Response {
     if !result.has_data() {
         let mut resp = encode_response(result, negotiated);
-        resp.status = graphql_http::RequestFailure::ValidationFailure.recommended_status();
+        resp.status = graphql_http_rust::RequestFailure::ValidationFailure.recommended_status();
         return to_axum_response(resp);
     }
     to_axum_response(encode_response(result, negotiated))

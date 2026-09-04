@@ -4,7 +4,7 @@
 
 use std::collections::HashMap;
 
-use graphql_http::{
+use graphql_http_rust::{
     document_looks_like_mutation, encode_response, negotiate, parse_get_params, parse_json_body,
     GraphQLRequest, GraphQLResult, HttpResponse, Negotiated, RequestFailure, RequestParseError,
 };

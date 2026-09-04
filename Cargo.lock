@@ -166,7 +166,7 @@ name = "example-server"
 version = "0.1.0"
 dependencies = [
  "axum",
- "graphql-http",
+ "graphql-http-rust",
  "reqwest",
  "serde_json",
  "tokio",
@@ -249,7 +249,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "graphql-http"
+name = "graphql-http-rust"
 version = "0.1.0"
 dependencies = [
  "serde",

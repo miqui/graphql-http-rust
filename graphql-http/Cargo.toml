@@ -1,10 +1,13 @@
 [package]
-name = "graphql-http"
+name = "graphql-http-rust"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-publish = false
-description = "HTTP-layer implementation of the GraphQL-over-HTTP specification (content negotiation, request parsing, response encoding, status-code decision logic)."
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "HTTP-layer implementation of the GraphQL-over-HTTP specification (Stage 2 Draft): content negotiation, request parsing, response encoding, and status-code decision logic. Draft-stage software, not production-ready."
+readme = "README.md"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
