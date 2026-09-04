@@ -8,7 +8,7 @@ description = "Example server exercising the graphql-http-rust crate end-to-end 
 
 [dependencies]
 graphql-http-rust = { path = "../../graphql-http" }
-axum = "0.7"
+axum = "0.8"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal"] }
 serde_json = "1"
 
