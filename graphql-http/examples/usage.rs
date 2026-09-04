@@ -37,7 +37,7 @@ fn main() {
     // A well-formed POST body: {"query": "...", "variables": {...}, "operationName": "..."}
     let body = br#"{"query": "query Q($i: Int!) { q(i: $i) }", "variables": {"i": 7}}"#;
 
-    let request: GraphQLRequest = match graphql_http::parse_json_body(body) {
+    let request: GraphQLRequest = match parse_json_body(body) {
         Ok(req) => req,
         Err(RequestParseError::NotParsable(_)) => {
             // Malformed JSON → 400 Bad Request (spec: "JSON parsing failure")
@@ -104,8 +104,14 @@ fn main() {
     let error = GraphQLResult::request_error(vec![serde_json::json!({
         "message": "unknown field"
     })]);
-    let response = encode_response(&error, negotiated);
-    // Status comes from the request-level failure classification; see §5.
+    // The HTTP-layer crate defaults the status; the application overrides it
+    // using the failure classification from §5 (e.g. 422 for validation
+    // failures), and the response body is the GraphQL error result.
+    let error_response = encode_response(&error, negotiated);
+    println!(
+        "request-error body: {}",
+        String::from_utf8_lossy(&error_response.body)
+    );
 
     // =====================================================================
     // 5. Map a pre-execution failure to its RECOMMENDED status code
