@@ -21,7 +21,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Run tests
-        run: cargo test --workspace
+        run: make test
 
   lint:
     name: lint
@@ -33,9 +33,9 @@ jobs:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
       - name: Check formatting
-        run: cargo fmt --all --check
+        run: make fmt-check
       - name: Run clippy
-        run: cargo clippy --workspace --all-targets -- -D warnings
+        run: make clippy
 
   audit:
     name: audit
@@ -48,4 +48,4 @@ jobs:
       - name: Install cargo-audit
         run: cargo install cargo-audit --locked
       - name: Run cargo audit
-        run: cargo audit
+        run: make audit
