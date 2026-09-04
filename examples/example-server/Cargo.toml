@@ -4,10 +4,10 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish = false
-description = "Example server exercising the graphql-http crate end-to-end over Axum."
+description = "Example server exercising the graphql-http-rust crate end-to-end over Axum."
 
 [dependencies]
-graphql-http = { path = "../../graphql-http" }
+graphql-http-rust = { path = "../../graphql-http" }
 axum = "0.7"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal"] }
 serde_json = "1"

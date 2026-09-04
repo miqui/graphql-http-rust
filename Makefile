@@ -37,7 +37,7 @@ k6-smoke: ## Run only the k6 spec-conformance smoke pass
 	k6 run --env SCENARIO=smoke examples/k6/graphql-scenarios.js
 
 example: ## Run the library usage example
-	cargo run -p graphql-http --example usage
+	cargo run -p graphql-http-rust --example usage
 
 clean: ## Remove build artifacts
 	cargo clean
